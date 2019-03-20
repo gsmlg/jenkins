@@ -8,6 +8,7 @@ docker build -f Dockerfile-jenkins-slave-jnlp2 -t gsmlg/jenkins-slave-jnlp2 .
 docker push gsmlg/jenkins-slave-jnlp2
 
 docker build -f Dockerfile-jenkins-slave-jnlp-nodejs -t gsmlg/jenkins-slave-jnlp-nodejs .
-docker push gsmlg/jenkins-slave-jnlp-nodejs 
+docker push gsmlg/jenkins-slave-jnlp-nodejs
 
-
+docker build -f Dockerfile-jenkins-slave-jnlp-dind -t gsmlg/jenkins-slave-jnlp-dind .
+docker push gsmlg/jenkins-slave-jnlp-dind
