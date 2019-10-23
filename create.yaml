@@ -85,6 +85,14 @@ spec:
 
 ---
 
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: jenkins-jnlp-master
+  namespace: jenkins
+
+---
+
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
@@ -96,7 +104,7 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: default
-  namespace: jenkins
+  namespace: jenkins-jnlp-master
 
 ---
 
@@ -106,14 +114,7 @@ metadata:
   name: jenkins-jnlp-master
   namespace: jenkins
 rules:
-- apiGroups:
-  - '*'
-  resources:
-  - '*'
-  verbs:
-  - '*'
-- nonResourceURLs:
-  - '*'
-  verbs:
-  - '*'
+- apiGroups: [""]
+  resources: ["pods", "pods/exec", "pods/log"]
+  verbs: ["*"]
 
