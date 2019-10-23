@@ -104,8 +104,8 @@ roleRef:
   name: jenkins-jnlp-master
 subjects:
 - kind: ServiceAccount
-  name: default
-  namespace: jenkins-jnlp-master
+  name: jenkins-jnlp-master
+  namespace: jenkins
 
 ---
 
