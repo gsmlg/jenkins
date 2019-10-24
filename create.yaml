@@ -18,24 +18,26 @@ spec:
         app: jenkins
     spec:
       serviceAccountName: jenkins-jnlp-master
+      securityContext:
+        fsGroup: 1000
       containers:
-        - name: jenkins
-          image: gsmlg/jenkins-master:latest
-          imagePullPolicy: Always
-          env:
-          - name: JAVA_OPTS
-            value: -Djenkins.install.runSetupWizard=false
-          ports:
-          - name: http-port
-            containerPort: 8080
-          - name: jnlp-port
-            containerPort: 50000
-          volumeMounts:
-          - mountPath: /tmp
-            name: tmp
-          - mountPath: /var/jenkins_home
-            name: jenkins-home
-            readOnly: false
+      - name: jenkins
+        image: gsmlg/jenkins-master:latest
+        imagePullPolicy: Always
+        env:
+        - name: JAVA_OPTS
+          value: -Djenkins.install.runSetupWizard=false
+        ports:
+        - name: http-port
+          containerPort: 8080
+        - name: jnlp-port
+          containerPort: 50000
+        volumeMounts:
+        - mountPath: /tmp
+          name: tmp
+        - mountPath: /var/jenkins_home
+          name: jenkins-home
+          readOnly: false
 
       volumes:
       - name: tmp
