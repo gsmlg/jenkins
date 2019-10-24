@@ -136,7 +136,7 @@ metadata:
   namespace: jenkins
 spec:
   accessModes:
-  - ReadWriteOne
+  - ReadWriteOnce
   resources:
     requests:
       storage: 8Gi
