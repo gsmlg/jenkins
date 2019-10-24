@@ -23,19 +23,27 @@ spec:
           image: gsmlg/jenkins-master:latest
           imagePullPolicy: Always
           env:
-            - name: JAVA_OPTS
-              value: -Djenkins.install.runSetupWizard=false
+          - name: JAVA_OPTS
+            value: -Djenkins.install.runSetupWizard=false
           ports:
-            - name: http-port
-              containerPort: 8080
-            - name: jnlp-port
-              containerPort: 50000
+          - name: http-port
+            containerPort: 8080
+          - name: jnlp-port
+            containerPort: 50000
           volumeMounts:
-            - name: jenkins-home
-              mountPath: /var/jenkins_home
+          - mountPath: /tmp
+            name: tmp
+          - mountPath: /var/jenkins_home
+            name: jenkins-home
+            readOnly: false
+
       volumes:
-        - name: jenkins-home
-          emptyDir: {}
+      - name: tmp
+        emptyDir: {}
+      - name: jenkins-home
+        persistentVolumeClaim:
+          claimName: jenkins-home
+
 ---
 
 apiVersion: v1
@@ -119,3 +127,17 @@ rules:
   resources: ["pods", "pods/exec", "pods/log"]
   verbs: ["*"]
 
+---
+
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: jenkins-home
+  namespace: jenkins
+spec:
+  accessModes:
+  - ReadWriteOne
+  resources:
+    requests:
+      storage: 8Gi
+  storageClassName: lvm
