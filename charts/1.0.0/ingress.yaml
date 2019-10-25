@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+  name: jenkins
+  namespace: jenkins
+spec:
+  rules:
+  - host: test.default.202.173.9.55.xip.io
+    http:
+      paths:
+      - backend:
+          serviceName: jenkins
+          servicePort: 80
+        path: /
