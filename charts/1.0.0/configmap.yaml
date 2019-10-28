@@ -9,6 +9,12 @@ data:
     if [ ! -f /var/jenkins_home/config.xml ]; then
       cp -f /var/jenkins_config/config.xml /var/jenkins_home/config.xml 
     fi
+    if [ ! -f /var/jenkins_home/credentials.xml ]; then
+      cp -f /var/jenkins_config/credentials.xml /var/jenkins_home/credentials.xml
+    fi
+    if [ ! -f /var/jenkins_home/locale.xml ]; then
+      cp -f /var/jenkins_config/locale.xml /var/jenkins_home/locale.xml
+    fi
     cp -f /var/jenkins_config/org.codefirst.SimpleThemeDecorator.xml /var/jenkins_home/org.codefirst.SimpleThemeDecorator.xml
   config.xml: |-
     <?xml version='1.1' encoding='UTF-8'?>
@@ -150,7 +156,7 @@ data:
           <namespace>jenkins</namespace>
           <jenkinsUrl>jenkins.jenkins.svc</jenkinsUrl>
           <jenkinsTunnel>jenkins.jenkins.svc:50000</jenkinsTunnel>
-          <credentialsId>3a74ae80-cd33-4d87-9e71-a61af7d21105</credentialsId>
+          <credentialsId>6c12f304-9aad-4fbb-81f3-91c4c02faa88</credentialsId>
           <containerCap>10</containerCap>
           <retentionTimeout>5</retentionTimeout>
           <connectTimeout>5</connectTimeout>
@@ -193,3 +199,27 @@ data:
         </org.jenkinsci.plugins.simpletheme.CssTextThemeElement>
       </elements>
     </org.codefirst.SimpleThemeDecorator>
+  credentials.xml: |-
+    <?xml version='1.1' encoding='UTF-8'?>
+    <com.cloudbees.plugins.credentials.SystemCredentialsProvider plugin="credentials@2.3.0">
+      <domainCredentialsMap class="hudson.util.CopyOnWriteMap$Hash">
+        <entry>
+          <com.cloudbees.plugins.credentials.domains.Domain>
+            <specifications/>
+          </com.cloudbees.plugins.credentials.domains.Domain>
+          <java.util.concurrent.CopyOnWriteArrayList>
+            <org.jenkinsci.plugins.kubernetes.credentials.FileSystemServiceAccountCredential plugin="kubernetes-credentials@0.4.1">
+              <scope>GLOBAL</scope>
+              <id>6c12f304-9aad-4fbb-81f3-91c4c02faa88</id>
+              <description></description>
+            </org.jenkinsci.plugins.kubernetes.credentials.FileSystemServiceAccountCredential>
+          </java.util.concurrent.CopyOnWriteArrayList>
+        </entry>
+      </domainCredentialsMap>
+    </com.cloudbees.plugins.credentials.SystemCredentialsProvider>
+  locale.xml: |-
+    <?xml version='1.1' encoding='UTF-8'?>
+    <locale plugin="locale@1.4">
+      <systemLocale>zh_CN</systemLocale>
+      <ignoreAcceptLanguage>true</ignoreAcceptLanguage>
+    </locale>
