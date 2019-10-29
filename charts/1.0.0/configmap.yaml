@@ -64,9 +64,9 @@ data:
               </volumes>
               <containers>
                 <org.csanchez.jenkins.plugins.kubernetes.ContainerTemplate>
-                  <name>jenkins</name>
+                  <name>jnlp</name>
                   <image>gsmlg/jenkins-slave-jnlp-dind</image>
-                  <privileged>false</privileged>
+                  <privileged>true</privileged>
                   <alwaysPullImage>false</alwaysPullImage>
                   <workingDir>/var/jenkins_home</workingDir>
                   <command></command>
@@ -116,7 +116,7 @@ data:
               <volumes/>
               <containers>
                 <org.csanchez.jenkins.plugins.kubernetes.ContainerTemplate>
-                  <name>jenkins</name>
+                  <name>jnlp</name>
                   <image>gsmlg/jenkins-slave-jnlp-nodejs</image>
                   <privileged>false</privileged>
                   <alwaysPullImage>true</alwaysPullImage>
@@ -154,7 +154,7 @@ data:
           <addMasterProxyEnvVars>false</addMasterProxyEnvVars>
           <capOnlyOnAlivePods>false</capOnlyOnAlivePods>
           <namespace>jenkins</namespace>
-          <jenkinsUrl>jenkins.jenkins.svc</jenkinsUrl>
+          <jenkinsUrl></jenkinsUrl>
           <jenkinsTunnel>jenkins.jenkins.svc:50000</jenkinsTunnel>
           <credentialsId>6c12f304-9aad-4fbb-81f3-91c4c02faa88</credentialsId>
           <containerCap>10</containerCap>
