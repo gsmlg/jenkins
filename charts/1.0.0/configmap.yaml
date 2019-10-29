@@ -7,7 +7,7 @@ data:
   add_conf.sh: |-
     #!/bin/sh
     if [ ! -f /var/jenkins_home/config.xml ]; then
-      cp -f /var/jenkins_config/config.xml /var/jenkins_home/config.xml 
+      sed "s/jenkins.jenkins.svc/$(getent hosts jenkins.jenkins.svc | awk '{print $1}')/g" /var/jenkins_config/config.xml > /var/jenkins_home/config.xml
     fi
     if [ ! -f /var/jenkins_home/credentials.xml ]; then
       cp -f /var/jenkins_config/credentials.xml /var/jenkins_home/credentials.xml
